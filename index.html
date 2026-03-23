@@ -46,6 +46,23 @@
   .img-upload-zone:hover{border-color:#B8892A;background:rgba(184,137,42,.04)}
   .section-nav-dot{width:8px;height:8px;border-radius:50%;background:#DDD8CE;cursor:pointer;transition:background .2s,transform .2s}
   .section-nav-dot.active{background:#B8892A;transform:scale(1.3)}
+
+  /* ── MOBILE RESPONSIVENESS ── */
+  @media (max-width: 992px) {
+    .hero-grid { grid-template-columns: 1fr !important; }
+    .hero-left { padding: 60px 24px !important; order: 2; }
+    .hero-right { padding: 40px 24px !important; order: 1; min-height: auto !important; }
+    .section-container { padding: 60px 24px !important; }
+    .grid-2col { grid-template-columns: 1fr !important; gap: 40px !important; }
+    .grid-4col { grid-template-columns: repeat(2, 1fr) !important; }
+    .grid-3col { grid-template-columns: 1fr !important; }
+    .toolbar { padding: 10px 16px !important; }
+    h1 { font-size: 36px !important; }
+  }
+  @media (max-width: 576px) {
+    .grid-4col { grid-template-columns: 1fr !important; }
+    .stats-grid { grid-template-columns: 1fr !important; }
+  }
 </style>
 </head>
 <body>
@@ -86,7 +103,7 @@ const DEFAULT_DATA = {
     { name: "Calcul de structures", pct: 85 },
     { name: "Dessin technique (AutoCAD)", pct: 92 },
     { name: "Gestion de projet", pct: 75 },
-    { name: "Implantation / Topographie", pct: 80 },
+    { name: "Implantation / Topographie", pct: 30 },
     { name: "Eurocodes & Normes", pct: 78 }
   ],
   experiences: [
@@ -313,9 +330,9 @@ function App() {
       </div>
 
       {/* ── HERO ── */}
-      <div style={{marginTop:"57px",display:"grid",gridTemplateColumns:"1fr 1fr",minHeight:"calc(100vh - 57px)"}}>
+      <div className="hero-grid" style={{marginTop:"57px",display:"grid",gridTemplateColumns:"1fr 1fr",minHeight:"calc(100vh - 57px)"}}>
         {/* Left dark */}
-        <div style={{background:"#1A2B45",padding:"80px 64px",display:"flex",flexDirection:"column",justifyContent:"center",position:"relative",overflow:"hidden"}}>
+        <div className="hero-left" style={{background:"#1A2B45",padding:"80px 64px",display:"flex",flexDirection:"column",justifyContent:"center",position:"relative",overflow:"hidden"}}>
           <div style={{position:"absolute",top:-120,right:-120,width:400,height:400,borderRadius:"50%",background:"radial-gradient(circle,rgba(184,137,42,.14),transparent 70%)",pointerEvents:"none"}}/>
           <Editable tag="div" value={data.tagline} onChange={v=>update("tagline",v)} editMode={editMode}
             style={{fontSize:"10px",letterSpacing:".28em",textTransform:"uppercase",color:"#D4A84B",marginBottom:"20px",display:"flex",alignItems:"center",gap:"12px"}}
@@ -345,7 +362,7 @@ function App() {
           </div>
         </div>
         {/* Right light */}
-        <div style={{background:"#F8F6F1",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"80px 64px",gap:"32px",position:"relative"}}>
+        <div className="hero-right" style={{background:"#F8F6F1",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",padding:"80px 64px",gap:"32px",position:"relative"}}>
           {/* Bridge cable deco */}
           <svg style={{position:"absolute",inset:0,width:"100%",height:"100%",pointerEvents:"none",opacity:.07}} viewBox="0 0 500 700" fill="none">
             <line x1="250" y1="0" x2="250" y2="700" stroke="#1A2B45" strokeWidth="1.5"/>
@@ -380,7 +397,7 @@ function App() {
             </div>
           </div>
           {/* Stats */}
-          <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"12px",width:"100%",maxWidth:"340px",zIndex:2}}>
+          <div className="stats-grid" style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"12px",width:"100%",maxWidth:"340px",zIndex:2}}>
             {data.stats.map((s,i)=>(
               <div key={i} className="bento-card" style={{background:"#fff",border:"1px solid #DDD8CE",padding:"16px 12px",textAlign:"center",boxShadow:"0 2px 12px rgba(26,43,69,.07)"}}>
                 <Editable tag="div" value={s.num} onChange={v=>update(`stats.${i}.num`,v)} editMode={editMode}
@@ -394,7 +411,7 @@ function App() {
       </div>
 
       {/* ── COMPETENCES ── */}
-      <section style={{padding:"96px 64px",background:"#fff"}} id="about">
+      <section className="section-container" style={{padding:"96px 64px",background:"#fff"}} id="about">
         <div style={{maxWidth:"1200px",margin:"0 auto"}}>
           <div style={{marginBottom:"52px"}}>
             <div style={{fontSize:"10px",letterSpacing:".3em",textTransform:"uppercase",color:"#B8892A",marginBottom:"10px",display:"flex",alignItems:"center",gap:"10px"}}>
@@ -404,7 +421,7 @@ function App() {
               Profil <em style={{fontStyle:"italic",color:"#3B6E8F"}}>Technique</em>
             </h2>
           </div>
-          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"64px"}}>
+          <div className="grid-2col" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"64px"}}>
             <div>
               {/* Logiciels */}
               <div style={{marginBottom:"32px"}}>
@@ -465,7 +482,7 @@ function App() {
       </section>
 
       {/* ── EXPERIENCE ── */}
-      <section style={{padding:"96px 64px",background:"#F8F6F1"}} id="experience">
+      <section className="section-container" style={{padding:"96px 64px",background:"#F8F6F1"}} id="experience">
         <div style={{maxWidth:"1200px",margin:"0 auto"}}>
           <div style={{marginBottom:"52px"}}>
             <div style={{fontSize:"10px",letterSpacing:".3em",textTransform:"uppercase",color:"#B8892A",marginBottom:"10px"}}>Parcours professionnel</div>
@@ -497,7 +514,7 @@ function App() {
                   {exp.gallery && exp.gallery.length > 0 && (
                     <div style={{marginTop:"24px",paddingTop:"20px",borderTop:"1px solid #E8E2D8"}}>
                       <div style={{fontSize:"9.5px",fontWeight:600,letterSpacing:".22em",textTransform:"uppercase",color:"#B8892A",marginBottom:"16px"}}>Illustrations de réalisations</div>
-                      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"14px"}}>
+                      <div className="grid-2col" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"14px"}}>
                         {exp.gallery.map((img, gi) => (
                           <div key={gi} className="bento-card" style={{border:"1px solid #E8E2D8",overflow:"hidden",boxShadow:"0 2px 12px rgba(26,43,69,.07)"}}>
                             <div className="project-img-wrap" style={{cursor:"pointer",height:"180px"}}
@@ -531,7 +548,7 @@ function App() {
       </section>
 
       {/* ── EDUCATION ── */}
-      <section style={{padding:"96px 64px",background:"#fff"}} id="education">
+      <section className="section-container" style={{padding:"96px 64px",background:"#fff"}} id="education">
         <div style={{maxWidth:"1200px",margin:"0 auto"}}>
           <div style={{marginBottom:"52px"}}>
             <div style={{fontSize:"10px",letterSpacing:".3em",textTransform:"uppercase",color:"#B8892A",marginBottom:"10px"}}>Formation académique</div>
@@ -539,7 +556,7 @@ function App() {
               Études & <em style={{fontStyle:"italic",color:"#3B6E8F"}}>Diplômes</em>
             </h2>
           </div>
-          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"20px"}}>
+          <div className="grid-2col" style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:"20px"}}>
             {data.education.map((edu,i)=>(
               <div key={edu.id} className="bento-card"
                 style={{background:edu.featured?"#1A2B45":"#F8F6F1",border:`1px solid ${edu.featured?"#1A2B45":"#E8E2D8"}`,padding:"32px 28px",position:"relative",overflow:"hidden",boxShadow:"0 2px 12px rgba(26,43,69,.07)"}}>
@@ -560,7 +577,7 @@ function App() {
       </section>
 
       {/* ── INTERESTS ── */}
-      <section style={{padding:"96px 64px",background:"#F8F6F1"}} id="interests">
+      <section className="section-container" style={{padding:"96px 64px",background:"#F8F6F1"}} id="interests">
         <div style={{maxWidth:"1200px",margin:"0 auto"}}>
           <div style={{marginBottom:"52px"}}>
             <div style={{fontSize:"10px",letterSpacing:".3em",textTransform:"uppercase",color:"#B8892A",marginBottom:"10px"}}>Centres d'intérêt</div>
@@ -568,7 +585,7 @@ function App() {
               Divers & <em style={{fontStyle:"italic",color:"#3B6E8F"}}>Loisirs</em>
             </h2>
           </div>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"14px"}}>
+          <div className="grid-4col" style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:"14px"}}>
             {data.interests.map((item,i)=>(
               <div key={i} className="bento-card" style={{background:"#fff",border:"1px solid #E8E2D8",padding:"24px 18px",textAlign:"center",boxShadow:"0 2px 12px rgba(26,43,69,.07)"}}>
                 <div style={{fontSize:"28px",marginBottom:"10px"}}>{item.icon}</div>
@@ -581,7 +598,7 @@ function App() {
       </section>
 
       {/* ── CONTACT ── */}
-      <section style={{padding:"96px 64px",background:"#1A2B45",position:"relative",overflow:"hidden"}} id="contact">
+      <section className="section-container" style={{padding:"96px 64px",background:"#1A2B45",position:"relative",overflow:"hidden"}} id="contact">
         <div style={{position:"absolute",inset:0,background:"radial-gradient(ellipse 70% 80% at 30% 50%,rgba(59,110,143,.15),transparent),radial-gradient(ellipse 50% 60% at 80% 80%,rgba(184,137,42,.08),transparent)",pointerEvents:"none"}}/>
         <div style={{maxWidth:"900px",margin:"0 auto",textAlign:"center",position:"relative",zIndex:1}}>
           <div style={{fontSize:"10px",letterSpacing:".3em",textTransform:"uppercase",color:"#D4A84B",marginBottom:"12px",display:"flex",alignItems:"center",justifyContent:"center",gap:"10px"}}>Contact</div>
@@ -590,7 +607,7 @@ function App() {
           </h2>
           <Editable tag="p" value={data.description.split(".")[0] + "."} onChange={()=>{}} editMode={false}
             style={{fontSize:"14px",color:"rgba(255,255,255,.6)",maxWidth:"520px",margin:"0 auto 48px",lineHeight:1.75}}/>
-          <div style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"16px",marginBottom:"48px"}}>
+          <div className="grid-3col" style={{display:"grid",gridTemplateColumns:"repeat(3,1fr)",gap:"16px",marginBottom:"48px"}}>
             {[{icon:"✉",label:"Email",key:"email"},{icon:"☎",label:"Téléphone",key:"phone"},{icon:"📍",label:"Adresse",key:"address"}].map(({icon,label,key})=>(
               <div key={key} style={{background:"rgba(255,255,255,.06)",border:"1px solid rgba(255,255,255,.1)",padding:"24px 20px",borderRadius:"2px",transition:"all .3s"}}>
                 <div style={{fontSize:"22px",marginBottom:"10px"}}>{icon}</div>
